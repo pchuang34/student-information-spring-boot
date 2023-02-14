@@ -1,6 +1,8 @@
-package com.peicheng;
+package com.peicheng.student;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.Objects;
 
@@ -17,8 +19,15 @@ public class Student {
             generator = "student_id_sequence"
     )
     private Integer id;
+
+    @NotBlank(message = "Name cannot be empty")
     private String name;
+
+    @NotBlank(message = "Email cannot be empty")
+    @Email
     private String email;
+
+    @NotBlank(message = "Age cannot be empty")
     private Integer age;
 
     public Student(Integer id,
