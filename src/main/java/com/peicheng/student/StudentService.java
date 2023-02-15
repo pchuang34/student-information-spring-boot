@@ -27,40 +27,33 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student getStudent(Long id){
-        return studentRepository.findAll()
-                .stream()
-                .filter(student -> student.getId().equals(id))
-                .findFirst()
+    public Student getStudent(Integer id){
+        return studentRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("student with id " + id + " not found"));
     }
 
-//    @PostMapping
-//    public void addStudent(@RequestBody NewStudentRequest newStudentRequest){
-//        Student student = new Student();
-//        student.setName(newStudentRequest.name);
-//        student.setEmail(newStudentRequest.email);
-//        student.setAge(newStudentRequest.age);
-//        studentRepository.save(student);
-//    }
+    public void addStudent(Student newStudentRequest){
+        Student student = new Student();
+        student.setName(newStudentRequest.getName());
+        student.setEmail(newStudentRequest.getEmail());
+        student.setAge(newStudentRequest.getAge());
+        studentRepository.save(student);
+    }
 
-    @DeleteMapping("{studentId}")
-    public void deleteStudent(@PathVariable("studentId") Integer id){
+    public void deleteStudent(Integer id){
         studentRepository.deleteById(id);
     }
 
-    @PutMapping("{studentId}")
-    public void updateStudent(@RequestBody NewStudentRequest newStudentRequest,
-                              @PathVariable("studentId") Integer id){
+    public void updateStudent(Student newStudentRequest, Integer id){
         Student student = studentRepository.findById(id).get();
-        if(newStudentRequest.name != null){
-            student.setName(newStudentRequest.name);
+        if(newStudentRequest.getName() != null){
+            student.setName(newStudentRequest.getName());
         }
-        if(newStudentRequest.age != null){
-            student.setAge(newStudentRequest.age);
+        if(newStudentRequest.getAge() != null){
+            student.setAge(newStudentRequest.getAge());
         }
-        if(newStudentRequest.email != null){
-            student.setEmail(newStudentRequest.email);
+        if(newStudentRequest.getEmail() != null){
+            student.setEmail(newStudentRequest.getEmail());
         }
         studentRepository.save(student);
     }

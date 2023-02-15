@@ -24,24 +24,36 @@ public class StudentController {
     }
 
     @GetMapping(path = "{studentId}")
-    public Student getStudent(@PathVariable("studentId") Long id){
+    public Student getStudent(@PathVariable("studentId") Integer id){
         return studentService.getStudent(id);
     }
 
+    //exception testing
     @GetMapping(path = "{studentId}/exception")
-    Student getCustomerException(@PathVariable("studentId") Long id) {
+    Student getCustomerException(@PathVariable("studentId") Integer id) {
         throw new ApiRequestException(
                 "ApiRequestException for customer " + id
         );
     }
 
     @PostMapping
-    public void addStudent(@RequestBody @Valid Student newStudentRequest){
+    public void addStudent(@Valid @RequestBody Student newStudentRequest){
 //        Student student = new Student();
 //        student.setName(newStudentRequest.name);
 //        student.setEmail(newStudentRequest.email);
 //        student.setAge(newStudentRequest.age);
-//        studentRepository.save(student);
+        studentService.addStudent(newStudentRequest);
+    }
+
+    @DeleteMapping("{studentId}")
+    public void deleteStudent(@PathVariable("studentId") Integer id){
+        studentService.deleteStudent(id);
+    }
+
+    @PutMapping("{studentId}")
+    public void updateStudent(@RequestBody Student newStudentRequest,
+                              @PathVariable("studentId") Integer id){
+        studentService.updateStudent(newStudentRequest, id);
     }
 
 }

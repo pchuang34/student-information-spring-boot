@@ -3,6 +3,7 @@ package com.peicheng.student;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Objects;
 
@@ -27,7 +28,7 @@ public class Student {
     @Email
     private String email;
 
-    @NotBlank(message = "Age cannot be empty")
+    @NotNull(message = "Age cannot be empty")
     private Integer age;
 
     public Student(Integer id,
