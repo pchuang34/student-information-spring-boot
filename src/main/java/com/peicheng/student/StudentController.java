@@ -38,10 +38,6 @@ public class StudentController {
 
     @PostMapping
     public void addStudent(@Valid @RequestBody Student newStudentRequest){
-//        Student student = new Student();
-//        student.setName(newStudentRequest.name);
-//        student.setEmail(newStudentRequest.email);
-//        student.setAge(newStudentRequest.age);
         studentService.addStudent(newStudentRequest);
     }
 
